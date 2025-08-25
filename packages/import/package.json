@@ -40,7 +40,7 @@
     "jira2md": "^2.1.2",
     "lerna": "8.2.3",
     "lodash": "4.17.21",
-    "node-fetch": "2.6.1",
+    "node-fetch": "2.6.7",
     "ora": "^5.4.1"
   },
   "devDependencies": {
