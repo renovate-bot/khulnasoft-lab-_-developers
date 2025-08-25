@@ -1,0 +1,18 @@
+{
+  "documentationUrl": "https://developers.aiexec.khulnasoft.com/docs/",
+  "supportsIncremental": false,
+  "connectionSpecification": {
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Aiexec Spec",
+    "type": "object",
+    "required": ["apiKey"],
+    "additionalProperties": true,
+    "properties": {
+      "apiKey": {
+        "type": "string",
+        "title": "Airbyte Integration API Key",
+        "airbyte_secret": true
+      }
+    }
+  }
+}

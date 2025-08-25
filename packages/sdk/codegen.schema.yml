@@ -1,0 +1,17 @@
+overwrite: true
+schema: https://api.aiexec.khulnasoft.com/graphql
+hooks:
+  afterOneFileWrite:
+    - prettier --write
+generates:
+  src/schema.json:
+    schema: ./Aiexec-Webhooks@current.graphql
+    plugins:
+      - introspection
+  src/schema.graphql:
+    schema: ./Aiexec-Webhooks@current.graphql
+    plugins:
+      - schema-ast
+    config:
+      includeDirectives: true
+      sort: true

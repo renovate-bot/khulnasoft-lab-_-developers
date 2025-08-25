@@ -1,0 +1,18 @@
+overwrite: true
+schema: ./src/schema.graphql
+hooks:
+  afterOneFileWrite:
+    - prettier --write
+config:
+  skipComments:
+    - "[Internal]"
+    - "[INTERNAL]"
+    - "[ALPHA]"
+  skipFields:
+    - integrationResource
+    - integrationResources
+  dedupeFragments: true
+generates:
+  src/_generated_documents.graphql:
+    plugins:
+      - "@aiexec/codegen-doc"

@@ -1,0 +1,26 @@
+{
+  "additionalProperties": true,
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "createdAt": {
+      "type": "string"
+    },
+    "updatedAt": {
+      "type": "string"
+    },
+    "archivedAt": {
+      "type": ["null", "string"]
+    },
+    "targetDate": {
+      "type": ["null", "string"]
+    },
+    "projectId": {
+      "type": "string"
+    }
+  }
+}

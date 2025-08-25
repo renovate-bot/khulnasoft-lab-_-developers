@@ -1,0 +1,38 @@
+{
+  "additionalProperties": true,
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "createdAt": {
+      "type": "string"
+    },
+    "updatedAt": {
+      "type": "string"
+    },
+    "archivedAt": {
+      "type": ["null", "string"]
+    },
+    "title": {
+      "type": "string"
+    },
+    "icon": {
+      "type": ["null", "string"]
+    },
+    "color": {
+      "type": ["null", "string"]
+    },
+    "creatorId": {
+      "type": "string"
+    },
+    "updatedById": {
+      "type": "string"
+    },
+    "projectId": {
+      "type": ["null", "string"]
+    },
+    "slugId": {
+      "type": "string"
+    }
+  }
+}

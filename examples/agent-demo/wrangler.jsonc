@@ -1,0 +1,22 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "aiexec-agent-demo",
+  "main": "src/index.ts",
+  "compatibility_date": "2025-05-12",
+  "compatibility_flags": [
+    "nodejs_compat"
+  ],
+  "kv_namespaces": [
+    {
+      "binding": "AIEXEC_TOKENS",
+      "id": "<your-kv-namespace-id>",
+    },
+  ],
+  "observability": {
+    "enabled": true,
+  },
+  "vars": {
+    "URL": "https://aiexec-agent-demo.<your-subdomain>.workers.dev",
+    "AIEXEC_CLIENT_ID": "<your-aiexec-client-id>",
+  }
+}

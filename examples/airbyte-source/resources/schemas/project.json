@@ -1,0 +1,119 @@
+{
+  "additionalProperties": true,
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "statusId": {
+      "type": "string"
+    },
+    "createdAt": {
+      "type": "string"
+    },
+    "updatedAt": {
+      "type": "string"
+    },
+    "archivedAt": {
+      "type": ["null", "string"]
+    },
+    "name": {
+      "type": "string"
+    },
+    "description": {
+      "type": ["null", "string"]
+    },
+    "slugId": {
+      "type": "string"
+    },
+    "icon": {
+      "type": ["null", "string"]
+    },
+    "color": {
+      "type": "string"
+    },
+    "state": {
+      "type": "string"
+    },
+    "teamIds": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "creatorId": {
+      "type": "string"
+    },
+    "leadId": {
+      "type": ["null", "string"]
+    },
+    "memberIds": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "organizationId": {
+      "type": "string"
+    },
+    "milestoneId": {
+      "type": ["null", "string"]
+    },
+    "lastProjectUpdatePromptAt": {
+      "type": ["null", "string"]
+    },
+    "startDate": {
+      "type": ["null", "string"]
+    },
+    "targetDate": {
+      "type": ["null", "string"]
+    },
+    "startedAt": {
+      "type": ["null", "string"]
+    },
+    "completedAt": {
+      "type": ["null", "string"]
+    },
+    "canceledAt": {
+      "type": ["null", "string"]
+    },
+    "autoArchivedAt": {
+      "type": ["null", "string"]
+    },
+    "sortOrder": {
+      "type": "number"
+    },
+    "issueCountHistory": {
+      "type": "array",
+      "items": {
+        "type": "integer"
+      }
+    },
+    "completedIssueCountHistory": {
+      "type": "array",
+      "items": {
+        "type": "integer"
+      }
+    },
+    "scopeHistory": {
+      "type": "array",
+      "items": {
+        "type": "integer"
+      }
+    },
+    "completedScopeHistory": {
+      "type": "array",
+      "items": {
+        "type": "integer"
+      }
+    },
+    "slackNewIssue": {
+      "type": "boolean"
+    },
+    "slackIssueComments": {
+      "type": "boolean"
+    },
+    "slackIssueStatuses": {
+      "type": "boolean"
+    }
+  }
+}

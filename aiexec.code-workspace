@@ -1,0 +1,50 @@
+{
+  "launch": {
+    "configurations": [],
+  },
+  "tasks": {
+    "version": "2.0.0",
+    "tasks": [],
+  },
+  "folders": [
+    {
+      "path": "./",
+    },
+  ],
+  "extensions": {
+    "recommendations": ["dbaeumer.vscode-eslint", "esbenp.prettier-vscode"],
+  },
+  "settings": {
+    "editor.tabSize": 2,
+    "editor.formatOnSave": true,
+    "search.exclude": {
+      "**/bower_components": true,
+      "**/build": true,
+      "**/node_modules": true,
+      "**/.rollup.cache": true,
+      "**/*.tsbuildinfo": true,
+    },
+    "editor.rulers": [120],
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": "explicit",
+      "source.organizeImports": "explicit"
+    },
+    "files.exclude": {
+      "**/.cache": true,
+      "**/.git": true,
+      "**/.svn": true,
+      "**/.hg": true,
+      "**/CVS": true,
+      "**/.DS_Store": true,
+      "**/build": true,
+      "**/dist": true,
+      "**/node_modules": true,
+      "**/.rollup.cache": true,
+      "**/*.tsbuildinfo": true,
+      "**/.size-snapshot.json": true,
+    },
+    "typescript.tsdk": "./node_modules/typescript/lib",
+    "typescript.enablePromptUseWorkspaceTsdk": true,
+    "cSpell.words": ["uuidv4"],
+  },
+}

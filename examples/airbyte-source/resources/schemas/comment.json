@@ -1,0 +1,53 @@
+{
+  "additionalProperties": true,
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "createdAt": {
+      "type": "string"
+    },
+    "updatedAt": {
+      "type": "string"
+    },
+    "archivedAt": {
+      "type": ["null", "string"]
+    },
+    "resolvedAt": {
+      "type": ["null", "string"]
+    },
+    "issueId": {
+      "type": ["null", "string"]
+    },
+    "resolvingCommentId": {
+      "type": ["null", "string"]
+    },
+    "resolvingUserId": {
+      "type": ["null", "string"]
+    },
+    "parentId": {
+      "type": ["null", "string"]
+    },
+    "userId": {
+      "type": ["null", "string"]
+    },
+    "editedAt": {
+      "type": ["null", "string"]
+    },
+    "attachmentId": {
+      "type": ["null", "string"]
+    },
+    "sourceMetadata": {
+      "type": ["null", "object"]
+    },
+    "bodyData": {
+      "type": ["null", "string"]
+    },
+    "reactionData": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    }
+  }
+}

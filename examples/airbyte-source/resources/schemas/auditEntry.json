@@ -1,0 +1,38 @@
+{
+  "additionalProperties": true,
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "createdAt": {
+      "type": "string"
+    },
+    "updatedAt": {
+      "type": "string"
+    },
+    "archivedAt": {
+      "type": ["null", "string"]
+    },
+    "type": {
+      "type": "string"
+    },
+    "organizationId": {
+      "type": "string"
+    },
+    "actorId": {
+      "type": ["null", "string"]
+    },
+    "ip": {
+      "type": ["string", "null"]
+    },
+    "countryCode": {
+      "type": ["null", "string"]
+    },
+    "metadata": {
+      "type": "object"
+    },
+    "userId": {
+      "type": ["null", "string"]
+    }
+  }
+}

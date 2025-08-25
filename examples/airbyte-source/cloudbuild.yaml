@@ -1,0 +1,43 @@
+steps:
+  - name: "gcr.io/cloud-builders/docker:20.10.3"
+    args: ["run", "--privileged", "linuxkit/binfmt:v0.7"]
+    id: "initialize-qemu"
+  - name: "gcr.io/cloud-builders/docker:20.10.3"
+    args: ["buildx", "create", "--name", "mybuilder"]
+    id: "create-builder"
+  - name: "gcr.io/cloud-builders/docker:20.10.3"
+    args: ["buildx", "use", "mybuilder"]
+    id: "select-builder"
+  - name: "gcr.io/cloud-builders/docker:20.10.3"
+    args: ["buildx", "inspect", "--bootstrap"]
+    id: "show-target-build-platforms"
+  - name: "gcr.io/cloud-builders/docker:20.10.3"
+    entrypoint: "/bin/bash"
+    secretEnv: ["AIEXEC_AIRBYTE_KEY"]
+    args:
+      - "-c"
+      - "-eEuo"
+      - "pipefail"
+      - |
+        apt-get update
+        apt-get install -qq -y gettext
+        envsubst < test_files/config_template.json > test_files/config.json
+        docker buildx build --platform=linux/amd64 -t airbyte-source --load -f Dockerfile .
+        docker run --rm -t -v /var/run/docker.sock:/var/run/docker.sock -v /tmp:/tmp -v $(pwd):/test_input airbyte/source-acceptance-test:latest --acceptance-test-config /test_input
+    id: integration-test
+  - name: "gcr.io/cloud-builders/docker:20.10.3"
+    entrypoint: "/bin/bash"
+    args:
+      - "-c"
+      - |
+        [[ "$BRANCH_NAME" == "main" ]] && docker buildx build --platform=$_DOCKER_BUILDX_PLATFORMS -t gcr.io/${PROJECT_ID}/airbyte-source:$BUILD_ID -t gcr.io/${PROJECT_ID}/airbyte-source:latest --push -f Dockerfile . || docker buildx build --platform=$_DOCKER_BUILDX_PLATFORMS -t gcr.io/${PROJECT_ID}/airbyte-source:$BUILD_ID -t gcr.io/${PROJECT_ID}/airbyte-source:latest -f Dockerfile .
+    id: build-multi-architecture-container-image
+options:
+  env:
+    - DOCKER_CLI_EXPERIMENTAL=enabled
+substitutions:
+  _DOCKER_BUILDX_PLATFORMS: "linux/amd64,linux/arm64"
+availableSecrets:
+  secretManager:
+    - versionName: projects/$PROJECT_ID/secrets/aiexec_airbyte_key/versions/latest
+      env: "AIEXEC_AIRBYTE_KEY"

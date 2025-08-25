@@ -1,0 +1,82 @@
+import { CriticalityLevel, diff } from "@graphql-inspector/core";
+import { GraphQLFileLoader } from "@graphql-tools/graphql-file-loader";
+import { loadSchema } from "@graphql-tools/load";
+import { buildSchema } from "graphql";
+import { writeFile } from "fs";
+import path from "path";
+import { promisify } from "util";
+import { logger, printLines } from "../../codegen-doc/src/index";
+import fetch from "node-fetch";
+
+const levelOrder = {
+  [CriticalityLevel.Breaking]: 2,
+  [CriticalityLevel.Dangerous]: 1,
+  [CriticalityLevel.NonBreaking]: 0,
+};
+
+const criticalityToSemver = {
+  [CriticalityLevel.Breaking]: "major",
+  [CriticalityLevel.Dangerous]: "minor",
+  [CriticalityLevel.NonBreaking]: "patch",
+};
+
+const filename = path.resolve(`../../.changeset/_generated_schema_${Math.ceil(Math.random() * 100000000)}.md`);
+
+const changeset = (criticality: CriticalityLevel) =>
+  printLines(["---", `"@aiexec/sdk": ${criticalityToSemver[criticality]}`, "---"]);
+
+/**
+ * Generate a changeset file by diffing the current schema with the master branch
+ */
+async function generateSchemaChangeset() {
+  /** Load main schema from github */
+  const response = await fetch(
+    "https://raw.githubusercontent.com/aiexec/aiexec/master/packages/sdk/src/schema.graphql"
+  );
+  if (!response.ok) {
+    throw new Error(`Failed to fetch schema: ${response.statusText}`);
+  }
+  const schemaText = await response.text();
+  const mainSchema = buildSchema(schemaText);
+
+  /** Load branch schema from path */
+  const branchSchema = await loadSchema(path.resolve("./src/schema.graphql"), {
+    loaders: [new GraphQLFileLoader()],
+  });
+
+  /** Calculate diff between main and branch schemas */
+  const changes = diff(mainSchema, branchSchema).sort((a, b) => {
+    return levelOrder[b.criticality.level] - levelOrder[a.criticality.level];
+  });
+
+  /** If we have changes, write to changeset file */
+  if (changes.length) {
+    await promisify(writeFile)(
+      filename,
+      printLines([
+        changeset(changes[0].criticality.level),
+        "\n",
+        changes
+          .map(
+            change =>
+              `feat(schema): [${change.criticality.level.toLowerCase()}] ${change.message}${
+                change.path ? ` (${change.path})` : ""
+              }`
+          )
+          .join("\n\n"),
+      ])
+    );
+  }
+
+  return changes;
+}
+
+generateSchemaChangeset()
+  .then(() => {
+    logger.info("script:generate-schema-changeset: Generated changeset from schema");
+  })
+  .catch(error => {
+    logger.error("script:generate-schema-changeset: Generating changeset from schema");
+    logger.fatal(error);
+    throw error;
+  });

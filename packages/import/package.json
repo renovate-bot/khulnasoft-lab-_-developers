@@ -1,0 +1,62 @@
+{
+  "name": "@aiexec/import",
+  "description": "Import helpers for uploading issues to Aiexec",
+  "version": "2.2.35",
+  "author": "KhulnaSoft, Ltd",
+  "license": "MIT",
+  "main": "dist/index-cjs.min.js",
+  "module": "dist/index-es.min.js",
+  "types": "dist/index.d.ts",
+  "bin": {
+    "aiexec-import": "bin/aiexec-import.js"
+  },
+  "repository": "https://github.com/khulnasoft-lab/aiexec",
+  "engines": {
+    "node": ">=12.x",
+    "yarn": "1.x"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "cli": "ts-node src/cli",
+    "cli:local": "NODE_TLS_REJECT_UNAUTHORIZED=0 ts-node src/cli --apiUrl https://local.aiexec.dev:8090/graphql",
+    "dev:import": "NODE_ENV=development yarn build:import",
+    "build:import": "run-s build:clean build:rollup",
+    "build:rollup": "npx rollup -c",
+    "build:clean": "npx rimraf -G dist .rollup-cache tsconfig.tsbuildinfo"
+  },
+  "dependencies": {
+    "@aiexec/sdk": "^57.0.0",
+    "@graphql-codegen/cli": "5.0.7",
+    "@graphql-tools/url-loader": "8.0.33",
+    "@octokit/core": "7.0.3",
+    "chalk": "4.1.2",
+    "cli-progress": "^3.12.0",
+    "csvtojson": "2.0.10",
+    "date-fns": "^2.19.0",
+    "inquirer": "^8.2.4",
+    "inquirer-file-path": "1.0.1",
+    "jira2md": "^2.1.2",
+    "lerna": "8.2.3",
+    "lodash": "4.17.21",
+    "node-fetch": "2.6.1",
+    "ora": "^5.4.1"
+  },
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^17.1.0",
+    "@rollup/plugin-json": "^4.1.0",
+    "@rollup/plugin-node-resolve": "^11.2.0",
+    "@rollup/plugin-typescript": "^8.1.1",
+    "@types/cli-progress": "^3.11.5",
+    "npm-run-all": "^4.1.5",
+    "rollup": "^2.38.3",
+    "rollup-plugin-gzip": "^2.5.0",
+    "rollup-plugin-terser": "^7.0.2",
+    "ts-node": "^10.9.1"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "gitHead": "ac77c2c674a4266bd263b18213354572d3e8f9eb"
+}

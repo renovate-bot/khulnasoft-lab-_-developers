@@ -1,0 +1,35 @@
+{
+  "additionalProperties": true,
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "organizationId": {
+      "type": "string"
+    },
+    "createdAt": {
+      "type": "string"
+    },
+    "updatedAt": {
+      "type": "string"
+    },
+    "archivedAt": {
+      "type": ["null", "string"]
+    },
+    "content": {
+      "type": ["null", "string"]
+    },
+    "projectId": {
+      "type": ["null", "string"]
+    },
+    "issueId": {
+      "type": ["null", "string"]
+    },
+    "documentId": {
+      "type": ["null", "string"]
+    },
+    "projectMilestoneId": {
+      "type": ["null", "string"]
+    }
+  }
+}

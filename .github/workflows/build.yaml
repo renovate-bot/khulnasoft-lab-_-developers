@@ -1,0 +1,51 @@
+name: build
+
+on:
+  push:
+    branches-ignore:
+      - master
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  checks: write
+  pull-requests: write
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Use node 18
+        uses: actions/setup-node@v2
+        with:
+          node-version: "18"
+
+      - name: Install dependencies
+        run: yarn
+
+      - name: Build packages
+        run: yarn build
+
+      - name: Run tests
+        run: yarn test
+
+      - name: Validate CJS and ESM resolution for SDK
+        # Catch issues like https://github.com/khulnasoft-lab/aiexec/issues/830
+        run: npx @arethetypeswrong/cli@0.18.2 --pack packages/sdk
+
+      - name: Compare schema for changes
+        uses: kamilkisiela/graphql-inspector@master
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          schema: "master:packages/sdk/src/schema.graphql"
+          fail-on-breaking: false
+
+      - name: Check for no generated changes
+        run: git update-index --refresh && git diff-index HEAD

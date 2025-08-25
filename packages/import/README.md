@@ -1,0 +1,217 @@
+> **Note**
+> Aiexec now has a migration assistant for importing from Asana, Jira, Shortcut, and GitHub without using the CLI.
+>
+> Please see [the documentation](https://aiexec.khulnasoft.com/docs/import-issues) for more information.
+> If you would like to import data from other services not listed above this CLI may still be useful.
+
+# aiexec-import
+
+Install the CLI:
+
+```
+yarn global add @aiexec/import
+```
+
+or
+
+```
+npm i --location=global @aiexec/import
+```
+
+Run interactive importer:
+
+```
+aiexec-import
+```
+
+## Importers
+
+It's recommended to only import open issues to keep your Aiexec account more manageable. Note that creation and modification dates on issues will not carry over.
+
+### GitHub
+
+Open GitHub issues can be imported with your personal access token from GitHub's API.
+
+Supported fields:
+
+- Title
+- Description
+- Labels
+- (Optional) Comments
+
+### Jira CSV
+
+This method is deprecated. We recommend importing Jira projects through the [in-product importer](https://aiexec.khulnasoft.com/docs/import-issues#jira) instead of the CLI, which also offers a CSV import option but imports more fields. If you proceed, the following fields are supported:
+
+- `Summary` - Issue title
+- `Description` - Converted into markdown and used as issue description
+- `URL` - URL of Jira issue
+- `Priority` - Issue priority
+- `Issue key` - Used to build backlink to original Jira issue
+- `Issue Type` - Added as a label
+- (Optional) `Release` - Added as a label
+
+### Asana CSV
+
+Asana projects can be imported into a Aiexec team from the CSV export file.
+
+Following fields are supported:
+
+- `Name` - Issue title
+- `Notes` - Converted into markdown and used as issue description
+- `Priority` - Issue priority
+- `Tags` - Added as a label
+- `Assignee` - Issue assignee
+
+### Pivotal Tracker CSV
+
+Pivotal Tracker projects can be imported into a Aiexec team from the CSV export file. It only imports `chores`, `features`, and `bugs`.
+
+Following fields are supported:
+
+- `Title` - Issue title
+- `Description` - Converted into markdown and used as issue description
+- `Labels` - Added as a label
+- `Owned By` - Story owner
+- `URL` - URL of Pivotal Tracker story
+- `Created at` - Preserves the story creation date
+
+### Shortcut CSV
+
+Shortcut workspaces can be imported into a Aiexec team from the CSV export file. It only imports `chores`, `features`, and `bugs`.
+
+Following fields are supported:
+
+- `Name` - Issue title
+- `Description` - Shortcut markdown formatted description
+- `Tasks` - Appended to the description
+- `External Tickets` - Appended to the description
+- `State` - Mapped to the most similar Aiexec status
+- `Type` - Added as a label
+- `Tags` - Added as labels
+- `Owners` - Story owner (only the first is preserved)
+- `URL` - URL of Shortcut story, also appended to the description
+- `Created at` - Preserves the story creation date
+
+### Trello JSON
+
+Trello board can be imported into a Aiexec team from the JSON export file, which can be obtained by going into Board → Show Menu → More → Print and Export → Export as JSON.
+
+Following fields are supported:
+
+- `Name` - Issue title
+- `Description` - Trello markdown formatted description
+- `URL` - URL of Trello card
+- `Labels` - Added as a label
+- `Attachments` - Added as links in the description
+- (Optional) `Comments` - Added in the description
+
+### Aiexec CSV
+
+Aiexec CSV exports (Settings → Import / Export → Export CSV) can be imported into Aiexec again. You can use this to import issues from one workspace to another. Archived issues won't be imported.
+
+Following fields are supported:
+
+- `Title` - Issue title
+- `Description` - Issue description
+- `Priority` - Issue priority
+- `Status` - Issue state (workflow)
+- `Assignee` - Issue assignee (user's full name)
+- `Labels` - Added as a label
+- `Estimate` - Issue estimate
+- `Created` - Issue creation date
+- `Completed` - Issue completion date (if has completed status)
+
+### GitLab CSV
+
+GitLab issues can be imported into a Aiexec team from the CSV export file.
+Go to your project in GitLab. Select Plan > Issues from the left sidebar. Use filters if you want to narrow down the list. In the upper right, click Actions (⋮) > Export as CSV.
+
+Following fields are supported:
+
+- `Title` - Issue title
+- `Description` - Issue description
+- `State`: - Issue workflow state
+- `Labels` - Added as a label
+- `URL`: - Added as a link in the issue description
+- `Created At`: Issue creation date
+- `Due Date`: Issue due date
+- `Closed At`: Issue completion date
+- `Weight`: Issue priority;
+- `Time Estimate` - Issue estimate
+
+<!-- AUTO-GENERATED-CONTENT:START (TEXT_SECTION:id=license&src=../../README.md) -->
+<!-- TEXT_SECTION:header:START -->
+<h1 align="center">🚀 Aiexec API</h1>
+
+<h3 align="center">
+  The purpose-built tool for planning and building products
+</h3>
+
+<p align="center">
+  Streamline issues, projects, and product roadmaps<br/>
+  with the system for modern software development.
+</p>
+
+<p align="center">
+  <a href="https://github.com/khulnasoft-lab/aiexec/blob/master/LICENSE">
+    <img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="License" />
+  </a>
+  <a href="https://github.com/khulnasoft-lab/aiexec/actions/workflows/build.yaml">
+    <img src="https://github.com/khulnasoft-lab/aiexec/actions/workflows/build.yaml/badge.svg" alt="Build Status" />
+  </a>
+  <a href="https://github.com/khulnasoft-lab/aiexec/actions/workflows/release.yaml">
+    <img src="https://github.com/khulnasoft-lab/aiexec/actions/workflows/release.yaml/badge.svg" alt="Release Status" />
+  </a>
+  <a href="https://github.com/khulnasoft-lab/aiexec/actions/workflows/schema.yaml">
+    <img src="https://github.com/khulnasoft-lab/aiexec/actions/workflows/schema.yaml/badge.svg" alt="Schema Status" />
+  </a>
+  <a href="https://github.com/khulnasoft-lab/aiexec/actions/workflows/dependencies.yaml">
+    <img src="https://github.com/khulnasoft-lab/aiexec/actions/workflows/dependencies.yaml/badge.svg" alt="Dependencies Status" />
+  </a>
+</p>
+<!-- TEXT_SECTION:header:END -->
+
+---
+
+## 📖 Overview
+
+This is the **Aiexec Monorepo**.  
+If you’re looking for documentation on the Aiexec **SDK** or **API**, please visit 👉 [**developers.aiexec.khulnasoft.com**](https://developers.aiexec.khulnasoft.com/docs).
+
+---
+
+## 🧩 Monorepo Structure
+
+The Aiexec Client uses custom [GraphQL Code Generator](https://graphql-code-generator.com/) plugins to produce a fully typed SDK for all operations and models exposed by the Aiexec production API.
+
+- Uses **`yarn workspaces`** + **`lerna`** for package management and publishing
+- Generated code uses the prefix **`_generated`** (do not edit manually)
+
+### 📦 Open Source Packages
+- [**sdk**](./packages/sdk/README.md) → The Aiexec Client SDK for interacting with the GraphQL API  
+- [**import**](./packages/import/README.md) → Import tooling for uploading from external systems  
+- [**codegen-doc**](./packages/codegen-doc/README.md) → GraphQL codegen plugin for generating fragments & documents  
+- [**codegen-sdk**](./packages/codegen-sdk/README.md) → GraphQL codegen plugin for generating a TypeScript SDK  
+- [**codegen-test**](./packages/codegen-test/README.md) → GraphQL codegen plugin for generating Jest tests  
+
+---
+
+## 🚀 Get Started
+
+```bash
+# Install dependencies
+yarn
+
+# Build all packages
+yarn build
+
+# Run all tests
+yarn test
+
+# Update schema from production API
+yarn schema
+
+# Create a changeset for generating CHANGELOG.md
+yarn changeset
+<!-- AUTO-GENERATED-CONTENT:END -->
