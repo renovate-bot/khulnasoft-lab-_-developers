@@ -1,17 +1,17 @@
 steps:
-  - name: "gcr.io/cloud-builders/docker:20.10.3"
+  - name: "gcr.io/cloud-builders/docker:20.10.24"
     args: ["run", "--privileged", "linuxkit/binfmt:v0.7"]
     id: "initialize-qemu"
-  - name: "gcr.io/cloud-builders/docker:20.10.3"
+  - name: "gcr.io/cloud-builders/docker:20.10.24"
     args: ["buildx", "create", "--name", "mybuilder"]
     id: "create-builder"
-  - name: "gcr.io/cloud-builders/docker:20.10.3"
+  - name: "gcr.io/cloud-builders/docker:20.10.24"
     args: ["buildx", "use", "mybuilder"]
     id: "select-builder"
-  - name: "gcr.io/cloud-builders/docker:20.10.3"
+  - name: "gcr.io/cloud-builders/docker:20.10.24"
     args: ["buildx", "inspect", "--bootstrap"]
     id: "show-target-build-platforms"
-  - name: "gcr.io/cloud-builders/docker:20.10.3"
+  - name: "gcr.io/cloud-builders/docker:20.10.24"
     entrypoint: "/bin/bash"
     secretEnv: ["AIEXEC_AIRBYTE_KEY"]
     args:
@@ -25,7 +25,7 @@ steps:
         docker buildx build --platform=linux/amd64 -t airbyte-source --load -f Dockerfile .
         docker run --rm -t -v /var/run/docker.sock:/var/run/docker.sock -v /tmp:/tmp -v $(pwd):/test_input airbyte/source-acceptance-test:latest --acceptance-test-config /test_input
     id: integration-test
-  - name: "gcr.io/cloud-builders/docker:20.10.3"
+  - name: "gcr.io/cloud-builders/docker:20.10.24"
     entrypoint: "/bin/bash"
     args:
       - "-c"
