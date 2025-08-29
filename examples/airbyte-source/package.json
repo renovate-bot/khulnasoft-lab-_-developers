@@ -65,7 +65,7 @@
   },
   "devDependencies": {
     "@types/jest": "28.1.1",
-    "@types/node": "16.11.7",
+    "@types/node": "16.18.126",
     "@types/verror": "^1.10.5",
     "@typescript-eslint/eslint-plugin": "5.28.0",
     "@typescript-eslint/eslint-plugin-tslint": "5.4.0",
