@@ -28,7 +28,7 @@
     "prepare": "husky install"
   },
   "dependencies": {
-    "axios": "0.26.0",
+    "axios": "1.12.0",
     "commander": "9.0.0",
     "faros-airbyte-cdk": "0.2.13",
     "ts-essentials": "9.1.2",
